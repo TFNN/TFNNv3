@@ -65,6 +65,15 @@ void run_tests(int sig_num)
         printf("%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f: %.2f%%\n", input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], input[8], input[9], input[10], input[11], output);
     }
 
+    // reload the dataset so that it's unshuffled..
+    FILE* f = fopen("train_xy.dat", "rb");
+    if(f != NULL)
+    {
+        size_t rv = fread(dataset, sizeof(float), DSS, f);
+        if(rv != DSS){printf("Reading dataset failed. %li\n", rv); exit(0);}
+        fclose(f);
+    }
+
     // dataset test
     printf("\nDataset Test: %.2f%%\n", output);
     for(uint i=0; i < DS; i++)
