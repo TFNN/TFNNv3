@@ -737,9 +737,9 @@ void layerStat(network* net)
     f32 min=0.f, avg=0.f, max=0.f;
     for(int j = 0; j < net->num_outputs; j++)
     {
-        for(uint k = 0; k < net->layer[net->num_layers-1][j].weights; k++)
+        for(uint k = 0; k < net->layer[0][j].weights; k++)
         {
-            const f32 w = net->layer[net->num_layers-1][j].data[k];
+            const f32 w = net->layer[0][j].data[k];
             if(w < min){min = w;}
             else if(w > max){max = w;}
             avg += w;
