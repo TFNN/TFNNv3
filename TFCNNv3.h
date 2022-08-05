@@ -1,7 +1,7 @@
 /*
 --------------------------------------------------
     James William Fletcher (github.com/tfcnn)
-        July 2022 - TFCNNv3
+        July 2022 - TFCNNv3 (v3.3)
 --------------------------------------------------
     
     Tiny Fully Connected Neural Network Library
@@ -37,9 +37,13 @@
 #ifndef TFCNN_H
 #define TFCNN_H
 
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
+#include <stdio.h>  // fopen, fclose, fwrite, fread, prinf
+#include <stdlib.h> // malloc, free, exit
+#include <math.h>   // tanhf, fabsf, expf, powf, sqrtf, logf, roundf
+#include <string.h> // memset, memcpy
+
+#define FAST_PREDICTABLE_MODE
+#define NOSSE
 
 #ifndef NOSSE
     #include <x86intrin.h>
@@ -52,8 +56,6 @@
 #define f32 float
 #define uint unsigned int
 #define forceinline __attribute__((always_inline)) inline
-#define FAST_PREDICTABLE_MODE
-#define NOSSE
 
 /*
 --------------------------------------
@@ -327,12 +329,12 @@ forceinline f32 softplus(const f32 x) //derivative is sigmoid()
     return logf(1.f + expf(x));
 }
 
-forceinline f32 atanDerivative(const f32 x) //atan()
+forceinline f32 atanDerivative(const f32 x) //atanf()
 {
     return 1.f / (1.f + (x*x));
 }
 
-forceinline f32 tanhDerivative(const f32 x) //tanh()
+forceinline f32 tanhDerivative(const f32 x) //tanhf()
 {
     return 1.f - (x*x);
 }
@@ -477,9 +479,9 @@ static inline f32 Derivative(const f32 x, const network* net)
 static inline f32 Activator(const f32 x, const network* net)
 {
     if(net->activator == 1)
-        return atan(x);
+        return atanf(x);
     else if(net->activator == 2)
-        return tanh(x);
+        return tanhf(x);
     else if(net->activator == 3)
         return elu(net, x);
     else if(net->activator == 4)
@@ -1022,7 +1024,7 @@ f32 processNetwork(network* net, const f32* inputs, const f32* target_outputs, f
 
         //const f32 loss = fabsf(target_outputs[i] - os[i]); // absolute error
         //const f32 loss = powf(target_outputs[i] - os[i], 2.f); // squared error
-        const f32 loss = target_outputs[i] - os[i]; // classic
+        const f32 loss = target_outputs[i] - os[i]; // bidirectional error
 
         net->error[i] += loss;
         total_loss += fabsf(target_outputs[i] - os[i]); // we return actual loss as a metric
@@ -1071,19 +1073,10 @@ f32 processNetwork(network* net, const f32* inputs, const f32* target_outputs, f
     // define error buffers
     f32 ef[net->num_layers-1][net->num_layerunits];
 
-    // this?
+    // sum output layer error to feed back into hidden layers
     f32 eout = 0.f;
     for(int i = 0; i < net->num_outputs; i++)
-        eout += net->gain * net->foutput[i] * net->error[i]; // linear derivative?
-
-    // MAYBE ? do some tests
-    // if(net->num_outputs > 1 && isnormal(eout) == 1)
-    //     eout /= net->num_outputs;
-
-    // or this? (summed all the error of the final output vector)
-    // f32 eout = 0.f;
-    // for(int i = 0; i < net->num_outputs; i++)
-    //     eout += net->error[i];
+        eout += net->gain * net->error[i];
 
     // output 'derivative error layer' of layer before/behind the output layer
     f32 ler = 0.f;
@@ -1158,9 +1151,9 @@ f32 processNetwork(network* net, const f32* inputs, const f32* target_outputs, f
     for(int i = 0; i < net->num_outputs; i++)
     {
         for(int j = 0; j < net->layer[net->num_layers-1][0].weights; j++)
-            net->layer[net->num_layers-1][i].data[j] += Optimiser(net, net->output[net->num_layers-2][j], eout, &net->layer[net->num_layers-1][i].momentum[j]);
+            net->layer[net->num_layers-1][i].data[j] += Optimiser(net, net->output[net->num_layers-2][j], net->error[i], &net->layer[net->num_layers-1][i].momentum[j]);
 
-        net->layer[net->num_layers-1][i].bias += Optimiser(net, 1, eout, &net->layer[net->num_layers-1][i].bias_momentum);
+        net->layer[net->num_layers-1][i].bias += Optimiser(net, 1, net->error[i], &net->layer[net->num_layers-1][i].bias_momentum);
     }
 
     // done, return forward prop output
