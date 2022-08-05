@@ -27,9 +27,11 @@ int  loadNetwork(network* net, const char* file);
 void layerStat(network* net);
 /*
     This is a method of getting a concise overview of network weights
-    per layer in the form; layer: min avg max
+    per layer in the form; layer: min avg max [sum]
     
-    That's the min, average, and max weight in the specific layer.
+    That's the min, average, and max weight in the specific layer
+    followed by the summation of all weights in the layer in
+    squared brackets.
     
     That is enough to give you a good idea of how the weights are
     scaling per layer during the training process.
