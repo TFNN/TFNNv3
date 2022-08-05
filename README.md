@@ -8,7 +8,7 @@
 - Turning off `FAST_PREDICTABLE_MODE` will use the platform dependent (Linux/Unix) `/dev/urandom`, it's two times slower but has higher entropy.
 - Turning off `NOSSE` will enable the use of SSE for square roots, which actually can be slower.
 - **Why no softmax?**<br>Softmax is targeted more towards classification of categories, which is better in a CNN where your outputs are onehot vector category classes. Here we have linear output layers because they fit well to a wider range of applications.
-- **Why no ADAM optimiser?**<br>Requires an extra parameter per weight, too much memory bandwidth usage over ADAGRAD. This is what I deem to be the best feature set for a FNN that will execute fast and efficiently on a CPU while still retaining a clean and portable codebase.
+- **Why no ADAM optimiser?**<br>Requires an extra parameter per weight, too much memory bandwidth usage over ADAGRAD.
 
 ### Functionality overview
 ```
