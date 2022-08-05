@@ -14,7 +14,16 @@ int  saveNetwork(network* net, const char* file);
 int  loadNetwork(network* net, const char* file);
 
 // debugging
-void layerStat(network* net); // a method of getting a concise overview of network weights per layer
+void layerStat(network* net);
+/*
+    This is a method of getting a concise overview of network weights
+    per layer in the form; layer: min avg max
+    
+    That's the min, average, and max weight in the specific layer.
+    
+    That is enough to give you a good idea of how the weights are
+    scaling per layer during the training process.
+*/
 
 // accessors
 void setWeightInit(network* net, const weight_init_type u);
