@@ -29,8 +29,8 @@ uint64_t microtime()
     return 1000000 * tv.tv_sec + tv.tv_usec;
     
     // struct timespec ts;
-	// clock_gettime(CLOCK_MONOTONIC, &ts);
-	// return (uint64_t) ts.tv_sec * (uint64_t) 1000000 + (uint64_t) (ts.tv_nsec / 1000);
+    // clock_gettime(CLOCK_MONOTONIC, &ts);
+    // return (uint64_t) ts.tv_sec * (uint64_t) 1000000 + (uint64_t) (ts.tv_nsec / 1000);
 }
 
 void shuffle_dataset()
