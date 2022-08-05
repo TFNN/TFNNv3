@@ -1,7 +1,9 @@
 ## TFCNNv3 - Tiny Fully Connected Neural Network Library
 
+### Update Log
 `[05/08/22]` - Initial commit, includes working example training on the Zodiac compatibility dataset.<br>
 
+### Functionality overview
 ```
 // primary function set
 int  createNetwork(network* net, const weight_init_type init_type, const uint num_inputs, const uint num_outputs, const uint num_hidden_layers, const uint num_layer_units, const uint default_settings);
