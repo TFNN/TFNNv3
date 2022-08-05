@@ -33,6 +33,9 @@ void layerStat(network* net);
     followed by the summation of all weights in the layer in
     squared brackets.
     
+    Layer 0 is the input layer, 1-x are hidden layers and the final
+    layer is the output.
+    
     That is enough to give you a good idea of how the weights are
     scaling per layer during the training process.
 */
