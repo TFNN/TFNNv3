@@ -732,24 +732,8 @@ void randomHyperparameters(network* net)
 
 void layerStat(network* net)
 {
-    // layers
-    for(int i = 0; i < net->num_layers-1; i++)
-    {
-        f32 min=0.f, avg=0.f, max=0.f;
-        for(int j = 0; j < net->num_layerunits; j++)
-        {
-            for(uint k = 0; k < net->layer[i][j].weights; k++)
-            {
-                const f32 w = net->layer[i][j].data[k];
-                if(w < min){min = w;}
-                else if(w > max){max = w;}
-                avg += w;
-            }
-        }
-        printf("%i: %.3f %.3f %.3f\n", i, min, avg, max);
-    }
-
-    // output layer
+    // input layer
+    const f32 input_divisor_reciprocal = 1.f/(net->num_layerunits*net->layer[0][0].weights);
     f32 min=0.f, avg=0.f, max=0.f;
     for(int j = 0; j < net->num_outputs; j++)
     {
@@ -761,7 +745,40 @@ void layerStat(network* net)
             avg += w;
         }
     }
-    printf("%i: %.3f %.3f %.3f\n", net->num_layers-1, min, avg, max);
+    printf("0: %.3f %.3f %.3f [%.3f]\n", min, avg*input_divisor_reciprocal, max, avg);
+
+    // hidden layers
+    const f32 hidden_divisor_reciprocal = 1.f/(net->num_layerunits*net->layer[1][0].weights);
+    for(int i = 1; i < net->num_layers-1; i++)
+    {
+        min=0.f, avg=0.f, max=0.f;
+        for(int j = 0; j < net->num_layerunits; j++)
+        {
+            for(uint k = 0; k < net->layer[i][j].weights; k++)
+            {
+                const f32 w = net->layer[i][j].data[k];
+                if(w < min){min = w;}
+                else if(w > max){max = w;}
+                avg += w;
+            }
+        }
+        printf("%i: %.3f %.3f %.3f [%.3f]\n", i, min, avg*hidden_divisor_reciprocal, max, avg);
+    }
+
+    // output layer
+    const f32 output_divisor_reciprocal = 1.f/(net->num_outputs*net->layer[net->num_layers-1][0].weights);
+    min=0.f, avg=0.f, max=0.f;
+    for(int j = 0; j < net->num_outputs; j++)
+    {
+        for(uint k = 0; k < net->layer[net->num_layers-1][j].weights; k++)
+        {
+            const f32 w = net->layer[net->num_layers-1][j].data[k];
+            if(w < min){min = w;}
+            else if(w > max){max = w;}
+            avg += w;
+        }
+    }
+    printf("%i: %.3f %.3f %.3f [%.3f]\n", net->num_layers-1, min, avg*output_divisor_reciprocal, max, avg);
 }
 
 int createNetwork(network* net, const uint init_weights_type, const uint inputs, const uint num_outputs, const uint hidden_layers, const uint layers_size, const uint default_settings)
