@@ -56,7 +56,7 @@ void run_tests(int sig_num)
     f32 output = 0.f;
 
     // random tests
-    printf("Random Inputs Test: %.2f%%\n", output);
+    printf("Random Inputs Test:\n");
     for(int i = 0; i < 9; i++)
     {
         for(int j = 0; j < 12; j++)
@@ -75,7 +75,7 @@ void run_tests(int sig_num)
     }
 
     // dataset test
-    printf("\nDataset Test: %.2f%%\n", output);
+    printf("\nDataset Test:\n");
     for(uint i=0; i < DS; i++)
     {
         const uint ofs = i*13;
