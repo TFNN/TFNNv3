@@ -52,10 +52,11 @@ void run_tests(int sig_num)
 {
     if(sig_num == 2){printf(" Early termination called.\n\n");}
 
-    f32 input[12] = {2,0,0,0,0,0,0,0,0,0,0,0};
+    f32 input[12];
     f32 output = 0.f;
 
     // random tests
+    printf("Random Inputs Test: %.2f%%\n", output);
     for(int i = 0; i < 9; i++)
     {
         for(int j = 0; j < 12; j++)
@@ -64,9 +65,14 @@ void run_tests(int sig_num)
         printf("%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f: %.2f%%\n", input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], input[8], input[9], input[10], input[11], output);
     }
 
-    // quick test (output should be ~75)
-    processNetwork(&net, &input[0], NULL, &output);
-    printf("\nTest Output: %.2f%%\n", output);
+    // dataset test
+    printf("\nDataset Test: %.2f%%\n", output);
+    for(uint i=0; i < DS; i++)
+    {
+        const uint ofs = i*13;
+        processNetwork(&net, &dataset[ofs], NULL, &output);
+        printf("%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f%.0f: %.2f%%\n", dataset[ofs], dataset[ofs+1], dataset[ofs+2], dataset[ofs+3], dataset[ofs+4], dataset[ofs+5], dataset[ofs+6], dataset[ofs+7], dataset[ofs+8], dataset[ofs+9], dataset[ofs+10], dataset[ofs+11], output);
+    }
     
     // save network
     //saveNetwork(&net, "network.save");
