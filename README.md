@@ -1,6 +1,8 @@
 ## TFCNNv3 - Tiny Fully Connected Neural Network Library
 Version 3 supports multiple linear output layers as where [TFCNNv1](https://github.com/TFCNN/TFCNNv1) supported only a single binary output as a sigmoid activation. We won't speak of v2.
 
+The example project provided is based on work by [Jim C. Williams](https://github.com/jcwml/neural_zodiac).
+
 ### Update Log
 `[05/08/22]` - Initial commit, includes working example training on the Zodiac compatibility dataset.<br>
 
