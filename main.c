@@ -1,5 +1,5 @@
 // James William Fletcher (github.com/tfcnn)
-// gcc main.c -lm -Ofast -mavx -mfma4 -o main
+// gcc main.c -lm -Ofast -mavx -mfma -o main
 
 #include <stdint.h>
 #include <unistd.h>
