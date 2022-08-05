@@ -1077,8 +1077,8 @@ f32 processNetwork(network* net, const f32* inputs, const f32* target_outputs, f
         eout += net->gain * net->foutput[i] * net->error[i]; // linear derivative?
 
     // MAYBE ? do some tests
-    if(net->num_outputs > 1 && isnormal(eout) == 1)
-        eout /= net->num_outputs;
+    // if(net->num_outputs > 1 && isnormal(eout) == 1)
+    //     eout /= net->num_outputs;
 
     // or this? (summed all the error of the final output vector)
     // f32 eout = 0.f;
