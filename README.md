@@ -14,7 +14,7 @@ int  saveNetwork(network* net, const char* file);
 int  loadNetwork(network* net, const char* file);
 
 // debugging
-void layerStat(network* net); // a method of getting a concise overview of network weights
+void layerStat(network* net); // a method of getting a concise overview of network weights per layer
 
 // accessors
 void setWeightInit(network* net, const weight_init_type u);
