@@ -101,7 +101,7 @@ struct
     uint num_layers;
     uint num_layerunits;
 
-    // backprop
+    // batch accumulation backprop
     uint  cbatches;// batch iteration counter
     f32** output;  // unit outputs for backprop
     f32*  error;   // total error of each output
