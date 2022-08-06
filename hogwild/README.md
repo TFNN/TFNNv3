@@ -6,5 +6,5 @@ Performance gains tests:
 - 0.5x on a 3995WX Zen2 Processor.
 - 3x gains on a Zen+ 2700x.
 - 0.15x gains on an i7-1165G7.
-- 
-- You can see that the gains do not necessarily scale as the raw power of the processor scales, something more intelligent needs to be done to take advantage of the resources available in a 3995WX that has 200 MB/s RAM bandwidth and 128 threads when a 2700x with ~30 MB/s RAM bandwidth and 16 threads is out performing it at a brutally crude multi-threaded application.
+
+It is apparent that the gains do not necessarily scale as the raw power of the processor scales, something more intelligent needs to be done to take advantage of the resources available in a 3995WX that has 200 MB/s RAM bandwidth and 128 threads when a 2700x with ~30 MB/s RAM bandwidth and 16 threads is out performing it at a brutally crude multi-threaded application.
