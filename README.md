@@ -5,7 +5,7 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 
 ### Update Log
 `[05/08/22]` - Initial commit, includes working example training on the Zodiac compatibility dataset.<br>
-`[06/08/22]` - A HOGWILD! implementation has been added to the [/hogwild](/hogwild) directory.<br>
+`[06/08/22]` - A [HOGWILD!](https://arxiv.org/pdf/1106.5730.pdf) implementation has been added to the [/hogwild](/hogwild) directory.<br>
 
 ### Notes
 - Pass `target_outputs` as NULL to `processNetwork()` for a forward pass / no training.
