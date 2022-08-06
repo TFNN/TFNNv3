@@ -956,8 +956,6 @@ f32 processNetwork(network* net, const f32* inputs, const f32* target_outputs, f
 
         total_loss += fabsf(target_outputs[i] - os[i]); // we return actual loss as a metric
     }
-    if(net->num_outputs > 1 && isnormal(total_loss) == 1)
-        total_loss /= net->num_outputs;
 
     // early return if total loss is 0
     if(total_loss == 0.f)
