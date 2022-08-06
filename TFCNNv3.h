@@ -37,7 +37,7 @@
 #ifndef TFCNN_H
 #define TFCNN_H
 
-#include <stdio.h>  // fopen, fclose, fwrite, fread, prinf
+#include <stdio.h>  // fopen, fclose, fwrite, fread, printf
 #include <stdlib.h> // malloc, free, exit
 #include <math.h>   // tanhf, fabsf, expf, powf, sqrtf, logf, roundf
 #include <string.h> // memset, memcpy
