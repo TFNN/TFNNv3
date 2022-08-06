@@ -140,7 +140,7 @@ int main()
             printf("failed to create thread %i\n", i);
     }
 
-    // run a trainin process on the parent too just for the statistics
+    // run a training process on the parent too just for the statistics
     uint epoch_seconds = 0;
     for(uint j=0; j < EPOCHS; j++)
     {
