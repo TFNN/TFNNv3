@@ -3,7 +3,7 @@ This version implements [HOGWILD!](https://arxiv.org/pdf/1106.5730.pdf), batchin
 This is experimental, and HOGWILD does work pretty well but it does not yeild more than a 3x performance gain in the best case senarios in my tests.
 
 Performance gains tests:
-- 0.5x on a [3995WX Zen2 Processor](https://www.amd.com/en/products/cpu/amd-ryzen-threadripper-pro-3995wx).
+- 0.5x gains on a [3995WX Zen2 Processor](https://www.amd.com/en/products/cpu/amd-ryzen-threadripper-pro-3995wx).
 - 3x gains on a [2700x Zen+ Processor](https://www.amd.com/en/products/cpu/amd-ryzen-7-2700x).
 - 0.15x gains on a [i7-1165G7 Tiger Lake Processor](https://ark.intel.com/content/www/us/en/ark/products/208921/intel-core-i71165g7-processor-12m-cache-up-to-4-70-ghz-with-ipu.html).
 
