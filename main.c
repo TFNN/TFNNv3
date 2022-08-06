@@ -104,7 +104,12 @@ int main()
         if(rv != DSS){printf("Reading dataset failed. %li\n", rv); return 1;}
         fclose(f);
     }
-
+    else
+    {
+        printf("train_xy.dat not found.\n");
+        return 1;
+    }
+    
     // init network
     int r = createNetwork(&net, WEIGHT_INIT_NORMAL_GLOROT, 12, 1, 3, 32, 1); 
     if(r < 0){printf("Init network failed, error: %i\n", r); return 2;}
