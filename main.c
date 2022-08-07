@@ -123,6 +123,7 @@ int main()
     setOptimiser(&net, OPTIM_ADAGRAD);
     setBatches(&net, 1);
     
+    // learning rate decay
     // setLearningRate(&net, 0.1f);
     // const f32 lr_rr = 0.09999f / (f32)EPOCHS; // learning rate _ reduction rate
 
@@ -143,14 +144,15 @@ int main()
 
         printf("[%u] epoch loss: %f\n", j, epoch_loss);
         printf("[%u] avg epoch loss: %f\n", j, epoch_loss/DS);
-        
-        // const f32 nlr = 0.1f-(lr_rr*(f32)j);
-        // setLearningRate(&net, nlr);
-        // printf("LR: %g\n", nlr);
 
 #if DEBUG == 1
         layerStat(&net);
 #endif
+        
+        // learning rate decay
+        // const f32 nlr = 0.1f-(lr_rr*(f32)j);
+        // setLearningRate(&net, nlr);
+        // printf("LR: %g\n", nlr);
 
         // just a test to see how accurate time(0) is at measuring seconds, not good.
         // static uint64_t mt = 0;
