@@ -16,6 +16,7 @@
 #define DS 78   // training/data samples (13 floats per sample 12 input 1 output)
 #define DSS 1014// dataset size (num of 4-byte floats)
 #define DEBUG 1
+#define LR_DECAY 0
 f32 dataset[DSS];
 network net;
 uint EPOCHS = 333333333;
@@ -124,10 +125,12 @@ int main()
     setOptimiser(&net, OPTIM_ADAGRAD);
     setBatches(&net, 1);
     
+#if LR_DECAY == 1
     // learning rate decay
-    // setLearningRate(&net, 0.1f);
-    // EPOCHS = 66000;
-    // const f32 lr_rr = 0.09999f / (f32)EPOCHS; // learning rate _ reduction rate
+    setLearningRate(&net, 0.1f);
+    EPOCHS = 66000;
+    const f32 lr_rr = 0.09999f / (f32)EPOCHS; // learning rate _ reduction rate
+#endif
 
     // train network
     uint epochs_per_second = 0;
@@ -150,11 +153,13 @@ int main()
 #if DEBUG == 1
         layerStat(&net);
 #endif
-        
+
+#if LR_DECAY == 1
         // learning rate decay
-        // const f32 nlr = 0.1f-(lr_rr*(f32)j);
-        // setLearningRate(&net, nlr);
-        // printf("LR: %g\n", nlr);
+        const f32 nlr = 0.1f-(lr_rr*(f32)j);
+        setLearningRate(&net, nlr);
+        printf("LR: %g\n", nlr);
+#endif
 
         // just a test to see how accurate time(0) is at measuring seconds, not good.
         // static uint64_t mt = 0;
