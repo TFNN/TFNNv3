@@ -35,12 +35,13 @@ uint64_t microtime()
 
 void shuffle_dataset()
 {
+    const int DS1 = DS-1;
     for(int i = 0; i < DS; i++)
     {
-        const int i1 = uRand(0, DS-2);
+        const int i1 = uRand(0, DS1);
         int i2 = i1;
         while(i1 == i2)
-            i2 = uRand(0, DS-2);
+            i2 = uRand(0, DS1);
         f32 t[13];
         memcpy(&t, &dataset[i1*13], 13*sizeof(f32));
         memcpy(&dataset[i1*13], &dataset[i2*13], 13*sizeof(f32));
