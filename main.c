@@ -122,6 +122,9 @@ int main()
     setActivator(&net, TANH);
     setOptimiser(&net, OPTIM_ADAGRAD);
     setBatches(&net, 1);
+    
+    // setLearningRate(&net, 0.1f);
+    // const f32 lr_rr = 0.09999f / (f32)EPOCHS; // learning rate _ reduction rate
 
     // train network
     uint epochs_per_second = 0;
@@ -140,6 +143,10 @@ int main()
 
         printf("[%u] epoch loss: %f\n", j, epoch_loss);
         printf("[%u] avg epoch loss: %f\n", j, epoch_loss/DS);
+        
+        // const f32 nlr = 0.1f-(lr_rr*(f32)j);
+        // setLearningRate(&net, nlr);
+        // printf("LR: %g\n", nlr);
 
 #if DEBUG == 1
         layerStat(&net);
