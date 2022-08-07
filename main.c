@@ -36,7 +36,7 @@ uint64_t microtime()
 
 void shuffle_dataset()
 {
-    const int DS1 = DS-1;
+    const int DS1 = DS-2;
     for(int i = 0; i < DS; i++)
     {
         const int i1 = uRand(0, DS1);
