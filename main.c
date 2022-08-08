@@ -1,6 +1,7 @@
 // James William Fletcher (github.com/tfcnn)
 // gcc main.c -lm -Ofast -mavx -mfma -o main
 
+#include <time.h>
 #include <stdint.h>
 #include <unistd.h>
 #include <signal.h>
@@ -9,8 +10,6 @@
 
 #ifdef __linux__
     #include <sys/time.h>
-#elif
-    #include <time.h>
 #endif
 
 #define DS 78   // training/data samples (13 floats per sample 12 input 1 output)
@@ -20,6 +19,7 @@
 f32 dataset[DSS];
 network net;
 uint EPOCHS = 333333333;
+time_t st;
 
 uint64_t microtime()
 {
@@ -32,6 +32,12 @@ uint64_t microtime()
     // struct timespec ts;
     // clock_gettime(CLOCK_MONOTONIC, &ts);
     // return (uint64_t) ts.tv_sec * (uint64_t) 1000000 + (uint64_t) (ts.tv_nsec / 1000);
+}
+
+void timestamp(char* ts)
+{
+    const time_t tt = time(0);
+    strftime(ts, 16, "%H:%M:%S", localtime(&tt));
 }
 
 void shuffle_dataset()
@@ -89,12 +95,20 @@ void run_tests(int sig_num)
     //saveNetwork(&net, "network.save");
 
     // done
+    char strts[16];
+    timestamp(&strts[0]);
+    printf("\n[%s] Training Ended.\nTime Taken: %lu seconds (%.2f minutes).\n\n", strts, time(0)-st, ((f32)(time(0)-st))/60.f);
     destroyNetwork(&net);
     exit(0);
 }
 
 int main()
 {
+    char strts[16];
+    timestamp(&strts[0]);
+    printf("\n[%s] Training Started.\n\n", strts);
+    st = time(0);
+    
     // ctrl+c callback
     signal(SIGINT, run_tests);
 
@@ -200,6 +214,3 @@ int main()
     run_tests(0);
     return 0;
 }
-
-
-
