@@ -104,14 +104,14 @@ void run_tests(int sig_num)
 
 int main()
 {
+    // ctrl+c callback
+    signal(SIGINT, run_tests);
+    
     // log start time
     char strts[16];
     timestamp(&strts[0]);
     printf("\n[%s] Training Started.\n\n", strts);
     st = time(0);
-    
-    // ctrl+c callback
-    signal(SIGINT, run_tests);
 
     // load dataset
     FILE* f = fopen("train_xy.dat", "rb");
