@@ -104,6 +104,7 @@ void run_tests(int sig_num)
 
 int main()
 {
+    // log start time
     char strts[16];
     timestamp(&strts[0]);
     printf("\n[%s] Training Started.\n\n", strts);
