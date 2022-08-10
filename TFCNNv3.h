@@ -31,7 +31,10 @@
     This is what I deem to be the best feature set for a
     FNN that will execute fast and efficiently on a CPU
     while still retaining a clean and portable codebase.
-
+    
+    You will want to compile this with the -mavx -mfma
+    flags for automatic vectorisation.
+    
 */
 
 #ifndef TFCNN_H
