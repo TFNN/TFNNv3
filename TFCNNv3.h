@@ -196,6 +196,15 @@ forceinline f32 sqrtps(f32 f)
 #endif
 }
 
+forceinline f32 rsqrtss(f32 f)
+{
+#ifdef NOSSE
+    return 1.f/sqrtf(f);
+#else
+    return _mm_cvtss_f32(_mm_rsqrt_ss(_mm_set_ss(f)));
+#endif
+}
+
 // random functions
 f32  uRandNormal();
 f32  uRandFloat(const f32 min, const f32 max);
@@ -528,14 +537,22 @@ forceinline f32 ADAGrad(network* net, const f32 input, const f32 error, f32* mom
 {
     const f32 err = error * input;
     momentum[0] += err * err;
-    return (net->rate / sqrtps(momentum[0] + net->epsilon)) * err;
+#ifdef NOSSE
+    return (net->rate / sqrtf(momentum[0] + net->epsilon)) * err;
+#else
+    return (net->rate * rsqrtss(momentum[0] + net->epsilon)) * err;
+#endif
 }
 
 forceinline f32 RMSProp(network* net, const f32 input, const f32 error, f32* momentum)
 {
     const f32 err = error * input;
     momentum[0] = net->rmsalpha * momentum[0] + (1.f - net->rmsalpha) * (err * err);
-    return (net->rate / sqrtps(momentum[0] + net->epsilon)) * err;
+#ifdef NOSSE
+    return (net->rate / sqrtf(momentum[0] + net->epsilon)) * err;
+#else
+    return (net->rate * rsqrtss(momentum[0] + net->epsilon)) * err;
+#endif
 }
 
 static inline f32 Optimiser(network* net, const f32 input, const f32 error, f32* momentum)
