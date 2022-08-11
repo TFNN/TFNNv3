@@ -23,7 +23,7 @@ int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uin
 /*
     createNetworkOptimalSmall()     - Smallest network for reasonable results.
     createNetworkOptimalAccurate()  - Largest network for more accurate results.
-    createNetworkOptimal()          - The best of both worlds.
+    createNetworkOptimal()          - The best of both worlds, the default for most networks.
 */
 
 // primary function set
