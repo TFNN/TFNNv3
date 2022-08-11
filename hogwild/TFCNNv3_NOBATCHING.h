@@ -51,6 +51,7 @@
 
 //#define FAST_PREDICTABLE_MODE
 #define NOSSE
+#define VERBOSE
 
 #ifndef NOSSE
     #include <x86intrin.h>
