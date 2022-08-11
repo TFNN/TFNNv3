@@ -17,17 +17,24 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 ### Functionality overview
 ```
 // simplified createNetwork() functions
-int  createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs);    // 8.2 KiB (8,396 bytes)
-int  createNetworkOptimal(network* net, const uint num_inputs, const uint num_outputs);         // 28.3 KiB (29,004 bytes)
-int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uint num_outputs); // 36.6 KiB (37,452 bytes)
+int  createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs);
+int  createNetworkOptimal(network* net, const uint num_inputs, const uint num_outputs);
+int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uint num_outputs);
 /*
+    // Network Size: 8.2 KiB (8,396 bytes)
     createNetworkOptimalSmall()     - Smallest network for reasonable results.
+    
+    // Network Size: 36.6 KiB (37,452 bytes)
     createNetworkOptimalAccurate()  - Largest network for more accurate results.
+    
+    // Network Size: 28.3 KiB (29,004 bytes)
     createNetworkOptimal()          - The best of both worlds, the default for most networks.
 */
 
 // primary function set
-int  createNetwork(network* net, const weight_init_type init_type, const uint num_inputs, const uint num_outputs, const uint num_hidden_layers, const uint num_layer_units, const uint default_settings);
+int  createNetwork( network* net, const weight_init_type init_type, const uint num_inputs,
+                    const uint num_outputs, const uint num_hidden_layers, const uint num_layer_units,
+                    const uint default_settings);
 f32  processNetwork(network* net, const f32* inputs, const f32* target_outputs, f32* outputs);
 void resetNetwork(network* net);
 void destroyNetwork(network* net);
@@ -60,7 +67,8 @@ void setLearningRate(network* net, const f32 f);
 void setGain(network* net, const f32 f);
 void setUnitDropout(network* net, const f32 f);   // dropout
 void setWeightDropout(network* net, const f32 f); // drop connect
-void setDropoutDecay(network* net, const f32 f);  // set dropout to silence the unit activation by decay rather than on/off
+void setDropoutDecay(network* net, const f32 f);  // set dropout to silence the unit
+                                                     activation by decay rather than on/off
 void setMomentum(network* net, const f32 f); // MOMENTUM & NESTEROV
 void setRMSAlpha(network* net, const f32 f); // RMSPROP
 void setELUAlpha(network* net, const f32 f); // ELU & LeakyReLU
