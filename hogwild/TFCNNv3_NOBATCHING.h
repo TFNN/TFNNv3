@@ -1152,6 +1152,16 @@ void destroyNetwork(network* net)
     free(net->layer[net->num_layers-1][0].momentum);
     free(net->layer[net->num_layers-1]);
     free(net->layer);
+    net->layer = NULL;
+
+    // free output buffers
+    for(int i = 0; i < net->num_layers-1; i++)
+        free(net->output[i]);
+    free(net->output);
+
+    // free batch buffers
+    free(net->foutput);
+    free(net->error);
 }
 
 int saveNetwork(network* net, const char* file)
@@ -1322,7 +1332,9 @@ int saveNetwork(network* net, const char* file)
     layerStat(net);
 #endif
 
-    for(int i = 0; i < net->num_inputs; i++)
+    ///
+
+    for(int i = 0; i < net->num_layerunits; i++)
     {
         if(fwrite(&net->layer[0][i].data[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
         {
@@ -1348,6 +1360,8 @@ int saveNetwork(network* net, const char* file)
             return -1023;
         }
     }
+
+    ///
 
     for(int i = 1; i < net->num_layers-1; i++)
     {
@@ -1379,6 +1393,8 @@ int saveNetwork(network* net, const char* file)
         }
     }
 
+    ///
+
     for(int i = 0; i < net->num_outputs; i++)
     {
         if(fwrite(&net->layer[net->num_layers-1][i].data[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
@@ -1406,7 +1422,8 @@ int saveNetwork(network* net, const char* file)
         }
     }
 
-    //
+    ///
+
     fclose(f);
     return 0;
 }
@@ -1588,7 +1605,7 @@ int loadNetwork(network* net, const char* file)
 
     ///
 
-    for(int i = 0; i < net->num_inputs; i++)
+    for(int i = 0; i < net->num_layerunits; i++)
     {
         if(fread(&net->layer[0][i].data[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
         {
@@ -1677,6 +1694,7 @@ int loadNetwork(network* net, const char* file)
     }
 
     ///
+    
     fclose(f);
 #ifdef VERBOSE
     layerStat(net);
