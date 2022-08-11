@@ -32,9 +32,9 @@ int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uin
 */
 
 // primary function set
-int  createNetwork( network* net, const weight_init_type init_type, const uint num_inputs,
-                    const uint num_outputs, const uint num_hidden_layers, const uint num_layer_units,
-                    const uint default_settings);
+int  createNetwork( network* net, weight_init_type init_type, uint num_inputs,
+                    uint num_outputs, uint num_hidden_layers, uint num_layer_units,
+                    uint default_settings);
 f32  processNetwork(network* net, const f32* inputs, const f32* target_outputs, f32* outputs);
 void resetNetwork(network* net);
 void destroyNetwork(network* net);
