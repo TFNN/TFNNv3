@@ -1281,251 +1281,251 @@ int saveNetwork(network* net, const char* file)
         return ERROR_UNINITIALISED_NETWORK;
 
     FILE* f = fopen(file, "wb");
-    if(f != NULL)
+    if(f == NULL)
+        return -102;
+
+    if(fwrite(&net->num_layerunits, 1, sizeof(uint), f) != sizeof(uint))
     {
-        if(fwrite(&net->num_layerunits, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("num_layerunits: %u\n", net->num_layerunits);
-#endif
-        
-        if(fwrite(&net->num_inputs, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("num_inputs: %u\n", net->num_inputs);
-#endif
-
-        if(fwrite(&net->num_outputs, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("num_outputs: %u\n", net->num_outputs);
-#endif
-        
-        if(fwrite(&net->num_layers, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("num_layers: %u\n", net->num_layers);
-#endif
-        
-        if(fwrite(&net->init, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("init: %u\n", net->init);
-#endif
-
-        if(fwrite(&net->activator, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("activator: %u\n", net->activator);
-#endif
-
-        if(fwrite(&net->optimiser, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("optimiser: %u\n", net->optimiser);
-#endif
-
-        if(fwrite(&net->batches, 1, sizeof(uint), f) != sizeof(uint))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("batches: %u\n", net->batches);
-#endif
-
-        ///
-
-        if(fwrite(&net->rate, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("rate: %g\n", net->rate);
-#endif
-
-        if(fwrite(&net->gain, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("gain: %g\n", net->gain);
-#endif
-
-        if(fwrite(&net->dropout, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("dropout: %g\n", net->dropout);
-#endif
-
-        if(fwrite(&net->wdropout, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("wdropout: %g\n", net->wdropout);
-#endif
-        
-        if(fwrite(&net->dropout_decay, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("dropout_decay: %g\n", net->dropout_decay);
-#endif
-
-        if(fwrite(&net->momentum, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("momentum: %g\n", net->momentum);
-#endif
-
-        if(fwrite(&net->rmsalpha, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("rmsalpha: %g\n", net->rmsalpha);
-#endif
-
-        if(fwrite(&net->elualpha, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("elualpha: %g\n", net->elualpha);
-#endif
-        
-        if(fwrite(&net->epsilon, 1, sizeof(f32), f) != sizeof(f32))
-        {
-            fclose(f);
-            return -1;
-        }
-#ifdef VERBOSE
-        printf("epsilon: %g\n", net->epsilon);
-        layerStat(net);
-#endif
-
-        for(int i = 0; i < net->num_inputs; i++)
-        {
-            if(fwrite(&net->layer[0][i].data[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-            
-            if(fwrite(&net->layer[0][i].momentum[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-
-            if(fwrite(&net->layer[0][i].bias, 1, sizeof(f32), f) != sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-            
-            if(fwrite(&net->layer[0][i].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-        }
-
-        for(int i = 1; i < net->num_layers-1; i++)
-        {
-            for(int j = 0; j < net->num_layerunits; j++)
-            {
-                if(fwrite(&net->layer[i][j].data[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
-                {
-                    fclose(f);
-                    return -1;
-                }
-                
-                if(fwrite(&net->layer[i][j].momentum[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
-                {
-                    fclose(f);
-                    return -1;
-                }
-
-                if(fwrite(&net->layer[i][j].bias, 1, sizeof(f32), f) != sizeof(f32))
-                {
-                    fclose(f);
-                    return -1;
-                }
-                
-                if(fwrite(&net->layer[i][j].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
-                {
-                    fclose(f);
-                    return -1;
-                }
-            }
-        }
-
-        for(int i = 0; i < net->num_outputs; i++)
-        {
-            if(fwrite(&net->layer[net->num_layers-1][i].data[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-            
-            if(fwrite(&net->layer[net->num_layers-1][i].momentum[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-
-            if(fwrite(&net->layer[net->num_layers-1][i].bias, 1, sizeof(f32), f) != sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-            
-            if(fwrite(&net->layer[net->num_layers-1][i].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
-            {
-                fclose(f);
-                return -1;
-            }
-        }
-
         fclose(f);
+        return -103;
+    }
+#ifdef VERBOSE
+    printf("num_layerunits: %u\n", net->num_layerunits);
+#endif
+    
+    if(fwrite(&net->num_inputs, 1, sizeof(uint), f) != sizeof(uint))
+    {
+        fclose(f);
+        return -104;
+    }
+#ifdef VERBOSE
+    printf("num_inputs: %u\n", net->num_inputs);
+#endif
+
+    if(fwrite(&net->num_outputs, 1, sizeof(uint), f) != sizeof(uint))
+    {
+        fclose(f);
+        return -105;
+    }
+#ifdef VERBOSE
+    printf("num_outputs: %u\n", net->num_outputs);
+#endif
+    
+    if(fwrite(&net->num_layers, 1, sizeof(uint), f) != sizeof(uint))
+    {
+        fclose(f);
+        return -106;
+    }
+#ifdef VERBOSE
+    printf("num_layers: %u\n", net->num_layers);
+#endif
+    
+    if(fwrite(&net->init, 1, sizeof(uint), f) != sizeof(uint))
+    {
+        fclose(f);
+        return -107;
+    }
+#ifdef VERBOSE
+    printf("init: %u\n", net->init);
+#endif
+
+    if(fwrite(&net->activator, 1, sizeof(uint), f) != sizeof(uint))
+    {
+        fclose(f);
+        return -108;
+    }
+#ifdef VERBOSE
+    printf("activator: %u\n", net->activator);
+#endif
+
+    if(fwrite(&net->optimiser, 1, sizeof(uint), f) != sizeof(uint))
+    {
+        fclose(f);
+        return -109;
+    }
+#ifdef VERBOSE
+    printf("optimiser: %u\n", net->optimiser);
+#endif
+
+    if(fwrite(&net->batches, 1, sizeof(uint), f) != sizeof(uint))
+    {
+        fclose(f);
+        return -1010;
+    }
+#ifdef VERBOSE
+    printf("batches: %u\n", net->batches);
+#endif
+
+    ///
+
+    if(fwrite(&net->rate, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1011;
+    }
+#ifdef VERBOSE
+    printf("rate: %g\n", net->rate);
+#endif
+
+    if(fwrite(&net->gain, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1012;
+    }
+#ifdef VERBOSE
+    printf("gain: %g\n", net->gain);
+#endif
+
+    if(fwrite(&net->dropout, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1013;
+    }
+#ifdef VERBOSE
+    printf("dropout: %g\n", net->dropout);
+#endif
+
+    if(fwrite(&net->wdropout, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1014;
+    }
+#ifdef VERBOSE
+    printf("wdropout: %g\n", net->wdropout);
+#endif
+    
+    if(fwrite(&net->dropout_decay, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1015;
+    }
+#ifdef VERBOSE
+    printf("dropout_decay: %g\n", net->dropout_decay);
+#endif
+
+    if(fwrite(&net->momentum, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1016;
+    }
+#ifdef VERBOSE
+    printf("momentum: %g\n", net->momentum);
+#endif
+
+    if(fwrite(&net->rmsalpha, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1017;
+    }
+#ifdef VERBOSE
+    printf("rmsalpha: %g\n", net->rmsalpha);
+#endif
+
+    if(fwrite(&net->elualpha, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1018;
+    }
+#ifdef VERBOSE
+    printf("elualpha: %g\n", net->elualpha);
+#endif
+    
+    if(fwrite(&net->epsilon, 1, sizeof(f32), f) != sizeof(f32))
+    {
+        fclose(f);
+        return -1019;
+    }
+#ifdef VERBOSE
+    printf("epsilon: %g\n", net->epsilon);
+    layerStat(net);
+#endif
+
+    for(int i = 0; i < net->num_inputs; i++)
+    {
+        if(fwrite(&net->layer[0][i].data[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
+        {
+            fclose(f);
+            return -1020;
+        }
+        
+        if(fwrite(&net->layer[0][i].momentum[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
+        {
+            fclose(f);
+            return -1021;
+        }
+
+        if(fwrite(&net->layer[0][i].bias, 1, sizeof(f32), f) != sizeof(f32))
+        {
+            fclose(f);
+            return -1022;
+        }
+        
+        if(fwrite(&net->layer[0][i].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
+        {
+            fclose(f);
+            return -1023;
+        }
     }
 
+    for(int i = 1; i < net->num_layers-1; i++)
+    {
+        for(int j = 0; j < net->num_layerunits; j++)
+        {
+            if(fwrite(&net->layer[i][j].data[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
+            {
+                fclose(f);
+                return -1024;
+            }
+            
+            if(fwrite(&net->layer[i][j].momentum[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
+            {
+                fclose(f);
+                return -1025;
+            }
+
+            if(fwrite(&net->layer[i][j].bias, 1, sizeof(f32), f) != sizeof(f32))
+            {
+                fclose(f);
+                return -1026;
+            }
+            
+            if(fwrite(&net->layer[i][j].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
+            {
+                fclose(f);
+                return -1027;
+            }
+        }
+    }
+
+    for(int i = 0; i < net->num_outputs; i++)
+    {
+        if(fwrite(&net->layer[net->num_layers-1][i].data[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
+        {
+            fclose(f);
+            return -1028;
+        }
+        
+        if(fwrite(&net->layer[net->num_layers-1][i].momentum[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
+        {
+            fclose(f);
+            return -1029;
+        }
+
+        if(fwrite(&net->layer[net->num_layers-1][i].bias, 1, sizeof(f32), f) != sizeof(f32))
+        {
+            fclose(f);
+            return -1030;
+        }
+        
+        if(fwrite(&net->layer[net->num_layers-1][i].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
+        {
+            fclose(f);
+            return -1031;
+        }
+    }
+
+    //
+    fclose(f);
     return 0;
 }
 
@@ -1537,7 +1537,7 @@ int loadNetwork(network* net, const char* file)
     
     FILE* f = fopen(file, "rb");
     if(f == NULL)
-        return -1;
+        return -102;
 
     ///
 
@@ -1548,7 +1548,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->num_layerunits, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -2;
+        return -103;
     }
 #ifdef VERBOSE
     printf("num_layerunits: %u\n", net->num_layerunits);
@@ -1557,7 +1557,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->num_inputs, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -3;
+        return -104;
     }
 #ifdef VERBOSE
     printf("num_inputs: %u\n", net->num_inputs);
@@ -1566,7 +1566,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->num_outputs, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -4;
+        return -105;
     }
 #ifdef VERBOSE
     printf("num_outputs: %u\n", net->num_outputs);
@@ -1575,7 +1575,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->num_layers, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -5;
+        return -106;
     }
 #ifdef VERBOSE
     printf("num_layers: %u\n", net->num_layers);
@@ -1584,7 +1584,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->init, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -6;
+        return -107;
     }
 #ifdef VERBOSE
     printf("init: %u\n", net->init);
@@ -1593,7 +1593,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->activator, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -7;
+        return -108;
     }
 #ifdef VERBOSE
     printf("activator: %u\n", net->activator);
@@ -1602,7 +1602,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->optimiser, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -8;
+        return -109;
     }
 #ifdef VERBOSE
     printf("optimiser: %u\n", net->optimiser);
@@ -1611,7 +1611,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->batches, 1, sizeof(uint), f) != sizeof(uint))
     {
         fclose(f);
-        return -9;
+        return -1010;
     }
 #ifdef VERBOSE
     printf("batches: %u\n", net->batches);
@@ -1622,7 +1622,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->rate, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -10;
+        return -1011;
     }
 #ifdef VERBOSE
     printf("rate: %g\n", net->rate);
@@ -1631,7 +1631,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->gain, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -11;
+        return -1012;
     }
 #ifdef VERBOSE
     printf("gain: %g\n", net->gain);
@@ -1640,7 +1640,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->dropout, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -12;
+        return -1013;
     }
 #ifdef VERBOSE
     printf("dropout: %g\n", net->dropout);
@@ -1649,7 +1649,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->wdropout, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -13;
+        return -1014;
     }
 #ifdef VERBOSE
     printf("wdropout: %g\n", net->wdropout);
@@ -1658,7 +1658,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->dropout_decay, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -14;
+        return -1015;
     }
 #ifdef VERBOSE
     printf("dropout_decay: %g\n", net->dropout_decay);
@@ -1667,7 +1667,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->momentum, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -15;
+        return -1016;
     }
 #ifdef VERBOSE
     printf("momentum: %g\n", net->momentum);
@@ -1676,7 +1676,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->rmsalpha, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -16;
+        return -1017;
     }
 #ifdef VERBOSE
     printf("rmsalpha: %g\n", net->rmsalpha);
@@ -1685,7 +1685,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->elualpha, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -17;
+        return -1018;
     }
 #ifdef VERBOSE
     printf("elualpha: %g\n", net->elualpha);
@@ -1694,7 +1694,7 @@ int loadNetwork(network* net, const char* file)
     if(fread(&net->epsilon, 1, sizeof(f32), f) != sizeof(f32))
     {
         fclose(f);
-        return -18;
+        return -1019;
     }
 #ifdef VERBOSE
     printf("epsilon: %g\n", net->epsilon);
@@ -1711,25 +1711,25 @@ int loadNetwork(network* net, const char* file)
         if(fread(&net->layer[0][i].data[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
         {
             fclose(f);
-            return -19;
+            return -1020;
         }
 
         if(fread(&net->layer[0][i].momentum[0], 1, net->num_inputs*sizeof(f32), f) != net->num_inputs*sizeof(f32))
         {
             fclose(f);
-            return -20;
+            return -1021;
         }
 
         if(fread(&net->layer[0][i].bias, 1, sizeof(f32), f) != sizeof(f32))
         {
             fclose(f);
-            return -21;
+            return -1022;
         }
 
         if(fread(&net->layer[0][i].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
         {
             fclose(f);
-            return -22;
+            return -1023;
         }
     }
 
@@ -1742,25 +1742,25 @@ int loadNetwork(network* net, const char* file)
             if(fread(&net->layer[i][j].data[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
             {
                 fclose(f);
-                return -23;
+                return -1024;
             }
 
             if(fread(&net->layer[i][j].momentum[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
             {
                 fclose(f);
-                return -24;
+                return -1025;
             }
 
             if(fread(&net->layer[i][j].bias, 1, sizeof(f32), f) != sizeof(f32))
             {
                 fclose(f);
-                return -25;
+                return -1026;
             }
 
             if(fread(&net->layer[i][j].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
             {
                 fclose(f);
-                return -26;
+                return -1027;
             }
         }
     }
@@ -1772,34 +1772,33 @@ int loadNetwork(network* net, const char* file)
         if(fread(&net->layer[net->num_layers-1][i].data[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
         {
             fclose(f);
-            return -27;
+            return -1028;
         }
 
         if(fread(&net->layer[net->num_layers-1][i].momentum[0], 1, net->num_layerunits*sizeof(f32), f) != net->num_layerunits*sizeof(f32))
         {
             fclose(f);
-            return -28;
+            return -1029;
         }
 
         if(fread(&net->layer[net->num_layers-1][i].bias, 1, sizeof(f32), f) != sizeof(f32))
         {
             fclose(f);
-            return -29;
+            return -1030;
         }
 
         if(fread(&net->layer[net->num_layers-1][i].bias_momentum, 1, sizeof(f32), f) != sizeof(f32))
         {
             fclose(f);
-            return -30;
+            return -1031;
         }
     }
 
     ///
-
+    fclose(f);
 #ifdef VERBOSE
     layerStat(net);
 #endif
-    fclose(f);
     return 0;
 }
 
