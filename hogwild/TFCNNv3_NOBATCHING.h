@@ -235,6 +235,10 @@ void randomHyperparameters(network* net);
 --------------------------------------
 */
 
+int  createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs);    // 8.2 KiB (8,396 bytes)
+int  createNetworkOptimal(network* net, const uint num_inputs, const uint num_outputs);         // 28.3 KiB (29,004 bytes)
+int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uint num_outputs); // 36.6 KiB (37,452 bytes)
+
 int  createNetwork(network* net, const weight_init_type init_type, const uint num_inputs, const uint num_outputs, const uint num_hidden_layers, const uint num_layer_units, const uint default_settings);
 f32  processNetwork(network* net, const f32* inputs, const f32* target_outputs, f32* outputs);
 void resetNetwork(network* net);
@@ -772,6 +776,21 @@ void layerStat(network* net)
         }
     }
     printf("%i: %+.3f %+.3f %+.3f [%+.3f]\n", net->num_layers-1, min, avg*output_divisor_reciprocal, max, avg);
+}
+
+int createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs)
+{
+    return createNetwork(net, WEIGHT_INIT_NORMAL_GLOROT, num_inputs, num_outputs, 3, 16, 1);
+}
+
+int createNetworkOptimal(network* net, const uint num_inputs, const uint num_outputs)
+{
+    return createNetwork(net, WEIGHT_INIT_NORMAL_GLOROT, num_inputs, num_outputs, 3, 32, 1);
+}
+
+int createNetworkOptimalAccurate(network* net, const uint num_inputs, const uint num_outputs)
+{
+    return createNetwork(net, WEIGHT_INIT_NORMAL_GLOROT, num_inputs, num_outputs, 4, 32, 1);
 }
 
 int createNetwork(network* net, const uint init_weights_type, const uint inputs, const uint num_outputs, const uint hidden_layers, const uint layers_size, const uint default_settings)
