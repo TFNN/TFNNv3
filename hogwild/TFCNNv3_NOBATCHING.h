@@ -738,24 +738,11 @@ void randomHyperparameters(network* net)
 
 void layerStat(network* net)
 {
-    // input layer
-    const f32 input_divisor_reciprocal = 1.f/(net->num_layerunits*net->layer[0][0].weights);
     f32 min=0.f, avg=0.f, max=0.f;
-    for(int j = 0; j < net->num_outputs; j++)
-    {
-        for(uint k = 0; k < net->layer[0][j].weights; k++)
-        {
-            const f32 w = net->layer[0][j].data[k];
-            if(w < min){min = w;}
-            else if(w > max){max = w;}
-            avg += w;
-        }
-    }
-    printf("0: %+.3f %+.3f %+.3f [%+.3f]\n", min, avg*input_divisor_reciprocal, max, avg);
-
-    // hidden layers
+    
+    // layers
     const f32 hidden_divisor_reciprocal = 1.f/(net->num_layerunits*net->layer[1][0].weights);
-    for(int i = 1; i < net->num_layers-1; i++)
+    for(int i = 0; i < net->num_layers-1; i++)
     {
         min=0.f, avg=0.f, max=0.f;
         for(int j = 0; j < net->num_layerunits; j++)
