@@ -16,7 +16,7 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 
 ### Functionality overview
 ```
-// simplified createNetwork functions
+// simplified createNetwork() functions
 int  createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs);    // 8.2 KiB (8,396 bytes)
 int  createNetworkOptimal(network* net, const uint num_inputs, const uint num_outputs);         // 28.3 KiB (29,004 bytes)
 int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uint num_outputs); // 36.6 KiB (37,452 bytes)
