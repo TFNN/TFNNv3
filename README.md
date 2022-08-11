@@ -5,7 +5,7 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 `[05/08/22]` - Initial commit, includes working example training on the Zodiac compatibility dataset.<br>
 `[06/08/22]` - A [HOGWILD!](https://arxiv.org/pdf/1106.5730.pdf) implementation has been added to the [/hogwild](/hogwild) directory.<br>
 `[10/08/22]` - Added support for SSE inverse square root `rsqrtss` in ADAGRAD and RMSPROP.<br>
-`[11/08/22]` - Fixed `saveNetwork()` & `loadNetwork()` functions.<br>
+`[11/08/22]` - Fixed `saveNetwork()` & `loadNetwork()` functions. Added three new `createNetwork()` functions.<br>
 
 ### Notes
 - Pass `target_outputs` as NULL to `processNetwork()` for a forward pass / no training.
@@ -17,6 +17,9 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 ### Functionality overview
 ```
 // primary function set
+int  createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs);    // 8.2 KiB (8,396 bytes)
+int  createNetworkOptimal(network* net, const uint num_inputs, const uint num_outputs);         // 28.3 KiB (29,004 bytes)
+int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uint num_outputs); // 36.6 KiB (37,452 bytes)
 int  createNetwork(network* net, const weight_init_type init_type, const uint num_inputs, const uint num_outputs, const uint num_hidden_layers, const uint num_layer_units, const uint default_settings);
 f32  processNetwork(network* net, const f32* inputs, const f32* target_outputs, f32* outputs);
 void resetNetwork(network* net);
