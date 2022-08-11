@@ -768,7 +768,7 @@ void layerStat(network* net)
             avg += w;
         }
     }
-    printf("0: %.3f %.3f %.3f [%.3f]\n", min, avg*input_divisor_reciprocal, max, avg);
+    printf("0: %+.3f %+.3f %+.3f [%+.3f]\n", min, avg*input_divisor_reciprocal, max, avg);
 
     // hidden layers
     const f32 hidden_divisor_reciprocal = 1.f/(net->num_layerunits*net->layer[1][0].weights);
@@ -785,7 +785,7 @@ void layerStat(network* net)
                 avg += w;
             }
         }
-        printf("%i: %.3f %.3f %.3f [%.3f]\n", i, min, avg*hidden_divisor_reciprocal, max, avg);
+        printf("%i: %+.3f %+.3f %+.3f [%+.3f]\n", i, min, avg*hidden_divisor_reciprocal, max, avg);
     }
 
     // output layer
@@ -801,7 +801,7 @@ void layerStat(network* net)
             avg += w;
         }
     }
-    printf("%i: %.3f %.3f %.3f [%.3f]\n", net->num_layers-1, min, avg*output_divisor_reciprocal, max, avg);
+    printf("%i: %+.3f %+.3f %+.3f [%+.3f]\n", net->num_layers-1, min, avg*output_divisor_reciprocal, max, avg);
 }
 
 int createNetwork(network* net, const uint init_weights_type, const uint inputs, const uint num_outputs, const uint hidden_layers, const uint layers_size, const uint default_settings)
