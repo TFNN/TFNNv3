@@ -16,10 +16,17 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 
 ### Functionality overview
 ```
-// primary function set
+// simplified createNetwork functions
 int  createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs);    // 8.2 KiB (8,396 bytes)
 int  createNetworkOptimal(network* net, const uint num_inputs, const uint num_outputs);         // 28.3 KiB (29,004 bytes)
 int  createNetworkOptimalAccurate(network* net, const uint num_inputs, const uint num_outputs); // 36.6 KiB (37,452 bytes)
+/*
+    createNetworkOptimalSmall()     - Smallest network for reasonable results.
+    createNetworkOptimalAccurate()  - Largest network for more accurate results.
+    createNetworkOptimal()          - The best of both worlds.
+*/
+
+// primary function set
 int  createNetwork(network* net, const weight_init_type init_type, const uint num_inputs, const uint num_outputs, const uint num_hidden_layers, const uint num_layer_units, const uint default_settings);
 f32  processNetwork(network* net, const f32* inputs, const f32* target_outputs, f32* outputs);
 void resetNetwork(network* net);
