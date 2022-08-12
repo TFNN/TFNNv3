@@ -21,13 +21,13 @@ int  createNetworkOptimalSmall(network* net, uint num_inputs, uint num_outputs);
 int  createNetworkOptimal(network* net, uint num_inputs, uint num_outputs);
 int  createNetworkOptimalAccurate(network* net, uint num_inputs, uint num_outputs);
 /*
-    // Network Size: 8.2 KiB (8,396 bytes)
+    // Network Size: ~8.2 KiB
     createNetworkOptimalSmall()     - Smallest network for reasonable results.
     
-    // Network Size: 36.6 KiB (37,452 bytes)
-    createNetworkOptimalAccurate()  - Largest network for more accurate results.
+    // Network Size: ~36.6 KiB
+    createNetworkOptimalAccurate()  - Larger network for more accurate results.
     
-    // Network Size: 28.3 KiB (29,004 bytes)
+    // Network Size: ~28.3 KiB
     createNetworkOptimal()          - The best of both worlds, the default for most networks.
 */
 
