@@ -53,7 +53,7 @@ void shuffle_dataset()
         f32 t[13];
         memcpy(&t, &dataset[i1*13], dl);
         memcpy(&dataset[i1*13], &dataset[i2*13], dl);
-        memcpy(&dataset[i2*13], t, dl);
+        memcpy(&dataset[i2*13], &t, dl);
     }
 }
 
