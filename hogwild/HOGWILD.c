@@ -1,4 +1,4 @@
-// James William Fletcher (github.com/tfcnn)
+// James William Fletcher (github.com/tfnn)
 // gcc main.c -lm -Ofast -mavx -mfma -o main
 // hogwild threaded version, linux/unix only
 // sadly this performs worse on a threadripper
@@ -19,7 +19,7 @@
 #include <pthread.h>
 #include <errno.h>
 
-#include "TFCNNv3_NOBATCHING.h"
+#include "TFNNv3_NOBATCHING.h"
 
 #define DS 78   // training/data samples (13 floats per sample 12 input 1 output)
 #define DSS 1014// dataset size (num of 4-byte floats)
