@@ -1,4 +1,4 @@
-// James William Fletcher (github.com/tfcnn)
+// James William Fletcher (github.com/tfnn)
 // gcc main.c -lm -Ofast -mavx -mfma -o main
 
 #include <time.h>
@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <signal.h>
 
-#include "TFCNNv3.h"
+#include "TFNNv3.h"
 
 #ifdef __linux__
     #include <sys/time.h>
