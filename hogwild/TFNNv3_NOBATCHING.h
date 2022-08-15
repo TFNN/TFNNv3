@@ -1,11 +1,11 @@
 /*
 --------------------------------------------------
-    James William Fletcher (github.com/tfcnn)
-        July 2022 - TFCNNv3 (v3.3) No Batching
+    James William Fletcher (github.com/tfnn)
+        July 2022 - TFNNv3 (v3.4) No Batching
 --------------------------------------------------
     
     Tiny Fully Connected Neural Network Library
-    https://github.com/tfcnn
+    https://github.com/tfnn
 
     Pass target_outputs as NULL to processNetwork()
     for a forward pass / no training.
@@ -41,8 +41,8 @@
 
 */
 
-#ifndef TFCNN_H
-#define TFCNN_H
+#ifndef TFNN_H
+#define TFNN_H
 
 #include <stdio.h>  // fopen, fclose, fwrite, fread, printf
 #include <stdlib.h> // malloc, free, exit
