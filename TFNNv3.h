@@ -272,7 +272,7 @@ void srandf(const int seed)
 static inline f32 urandf() // 0 to 1
 {
 #ifdef FAST_PREDICTABLE_MODE
-    // https://www.musicdsp.org/en/latest/Other/273-fast-f32-random-numbers.html
+    // https://www.musicdsp.org/en/latest/Other/273-fast-float-random-numbers.html
     // moc.liamg@seir.kinimod
     srandfq *= 16807;
     return (f32)(srandfq & 0x7FFFFFFF) * 4.6566129e-010f;
@@ -289,7 +289,7 @@ static inline f32 urandf() // 0 to 1
 static inline f32 urandfc() // -1 to 1
 {
 #ifdef FAST_PREDICTABLE_MODE
-    // https://www.musicdsp.org/en/latest/Other/273-fast-f32-random-numbers.html
+    // https://www.musicdsp.org/en/latest/Other/273-fast-float-random-numbers.html
     // moc.liamg@seir.kinimod
     srandfq *= 16807;
     return ((f32)srandfq) * 4.6566129e-010f;
