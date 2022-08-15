@@ -1,4 +1,4 @@
-## TFNNv3 - Tiny Fully Connected Neural Network Library
+## TFNNv3 - Tiny Feedforward Neural Network Library
 The example project provided is based on work by [Jim C. Williams](https://github.com/jcwml/neural_zodiac).
 
 ### Update Log
