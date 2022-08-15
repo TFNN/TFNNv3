@@ -327,6 +327,7 @@ forceinline uint uRand(const uint min, const uint umax)
 
 f32 uRandNormal()
 {
+    // Box-Muller transform: https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
     f32 u = urandfc();
     f32 v = urandfc();
     f32 r = u * u + v * v;
