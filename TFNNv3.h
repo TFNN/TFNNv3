@@ -1,7 +1,7 @@
 /*
 --------------------------------------------------
     James William Fletcher (github.com/tfnn)
-        July 2022 - TFNNv3 (v3.4)
+        July 2022 - TFNNv3 (v3.04)
 --------------------------------------------------
     
     Tiny Fully Connected Neural Network Library
