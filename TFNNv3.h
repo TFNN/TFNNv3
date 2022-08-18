@@ -763,7 +763,7 @@ void layerStat(network* net)
     f32 min=0.f, avg=0.f, max=0.f;
     
     // layers
-    const f32 hidden_divisor_reciprocal = 1.f/(net->num_layerunits*net->layer[1][0].weights);
+    f32 divisor_reciprocal = 1.f/(net->num_layerunits*net->layer[1][0].weights);
     for(int i = 0; i < net->num_layers-1; i++)
     {
         min=0.f, avg=0.f, max=0.f;
@@ -777,11 +777,11 @@ void layerStat(network* net)
                 avg += w;
             }
         }
-        printf("%i: %+.3f %+.3f %+.3f [%+.3f]\n", i, min, avg*hidden_divisor_reciprocal, max, avg);
+        printf("%i: %+.3f %+.3f %+.3f [%+.3f]\n", i, min, avg*divisor_reciprocal, max, avg);
     }
 
     // output layer
-    const f32 output_divisor_reciprocal = 1.f/(net->num_outputs*net->layer[net->num_layers-1][0].weights);
+    divisor_reciprocal = 1.f/(net->num_outputs*net->layer[net->num_layers-1][0].weights);
     min=0.f, avg=0.f, max=0.f;
     for(int j = 0; j < net->num_outputs; j++)
     {
@@ -793,7 +793,7 @@ void layerStat(network* net)
             avg += w;
         }
     }
-    printf("%i: %+.3f %+.3f %+.3f [%+.3f]\n", net->num_layers-1, min, avg*output_divisor_reciprocal, max, avg);
+    printf("%i: %+.3f %+.3f %+.3f [%+.3f]\n", net->num_layers-1, min, avg*divisor_reciprocal, max, avg);
 }
 
 int createNetworkOptimalSmall(network* net, const uint num_inputs, const uint num_outputs)
