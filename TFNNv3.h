@@ -585,7 +585,7 @@ forceinline f32 doPerceptron(const f32* in, ptron* p)
     f32 ro = 0.f;
     for(uint i = 0; i < p->weights; i++)
         ro += in[i] * p->data[i]; // descend the weights by gradient/error
-    ro += p->bias; // descend the weights by bias
+    ro += p->bias; // descend the bias by gradient/error
     return ro;
 }
 
