@@ -4,12 +4,12 @@
 #include <time.h>
 #include <stdint.h>
 #include <unistd.h>
-#include <signal.h>
 
 #include "TFNNv3.h"
 
 #ifdef __linux__
     #include <sys/time.h>
+    #include <signal.h>
 #endif
 
 #define DS 78   // training/data samples (13 floats per sample 12 input 1 output)
@@ -105,8 +105,10 @@ void run_tests(int sig_num)
 
 int main()
 {
+#ifdef __linux__
     // ctrl+c callback
     signal(SIGINT, run_tests);
+#endif
     
     // log start time
     char strts[16];
