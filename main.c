@@ -21,6 +21,7 @@ network net;
 uint EPOCHS = 333333333;
 time_t st;
 
+#ifdef __linux__
 uint64_t microtime()
 {
     struct timeval tv;
@@ -33,6 +34,7 @@ uint64_t microtime()
     // clock_gettime(CLOCK_MONOTONIC, &ts);
     // return (uint64_t) ts.tv_sec * (uint64_t) 1000000 + (uint64_t) (ts.tv_nsec / 1000);
 }
+#endif
 
 void timestamp(char* ts)
 {
