@@ -5,7 +5,7 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 `[05/08/22]` - Initial commit, includes working example training on the Zodiac compatibility dataset.<br>
 `[10/08/22]` - Added support for SSE inverse square root `rsqrtss` in ADAGRAD and RMSPROP.<br>
 `[11/08/22]` - Fixed `saveNetwork()` & `loadNetwork()` functions & added three new `createNetwork()` functions.<br>
-`[23/08/22]` - Fixed random function.<br>
+`[23/08/22]` - Fixed `uRand()` function.<br>
 
 ### Notes
 - Pass `target_outputs` as NULL to `processNetwork()` for a forward pass / no training.
