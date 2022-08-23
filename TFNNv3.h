@@ -319,9 +319,8 @@ f32 uRandWeight(const f32 min, const f32 max)
     return pr;
 }
 
-forceinline uint uRand(const uint min, const uint umax)
+forceinline uint uRand(const uint min, const uint max)
 {
-    const uint max = umax + 1;
     return ( urandf() * (max-min) ) + min;
 }
 
