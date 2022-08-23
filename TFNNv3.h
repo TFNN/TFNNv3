@@ -1,7 +1,7 @@
 /*
 --------------------------------------------------
     James William Fletcher (github.com/tfnn)
-        July 2022 - TFNNv3 (v3.04)
+        July 2022 - TFNNv3 (v3.05)
 --------------------------------------------------
     
     Tiny Fully Connected Neural Network Library
@@ -277,12 +277,12 @@ static inline f32 urandf() // 0 to 1
     srandfq *= 16807;
     return (f32)(srandfq & 0x7FFFFFFF) * 4.6566129e-010f;
 #else
-    static const f32 FLOAT_UINT64_MAX = (f32)UINT64_MAX;
+    static const f32 FLOAT_UINT64_MAX = 1.f/(f32)UINT64_MAX;
     int f = open("/dev/urandom", O_RDONLY | O_CLOEXEC);
     uint64_t s = 0;
     ssize_t result = read(f, &s, sizeof(uint64_t));
     close(f);
-    return (((f32)s)+1e-7f) / FLOAT_UINT64_MAX;
+    return ((f32)s) * FLOAT_UINT64_MAX;
 #endif
 }
 
@@ -294,12 +294,12 @@ static inline f32 urandfc() // -1 to 1
     srandfq *= 16807;
     return ((f32)srandfq) * 4.6566129e-010f;
 #else
-    static const f32 FLOAT_UINT64_MAX_HALF = (f32)(UINT64_MAX/2);
+    static const f32 FLOAT_UINT64_MAX_HALF = 1.f/(f32)(UINT64_MAX/2);
     int f = open("/dev/urandom", O_RDONLY | O_CLOEXEC);
     uint64_t s = 0;
     ssize_t result = read(f, &s, sizeof(uint64_t));
     close(f);
-    return ((((f32)s)+1e-7f) / FLOAT_UINT64_MAX_HALF) - 1.f;
+    return (((f32)s) * FLOAT_UINT64_MAX_HALF) - 1.f;
 #endif
 }
 
@@ -314,7 +314,7 @@ f32 uRandWeight(const f32 min, const f32 max)
     while(pr == 0) //never return 0
     {
         const f32 rv2 = ( urandf() * (max-min) ) + min;
-        pr = roundf(rv2 * 100) / 100; // two decimals of precision
+        pr = roundf(rv2 * 100.f) * 0.01f; // two decimals of precision
     }
     return pr;
 }
