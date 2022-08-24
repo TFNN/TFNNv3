@@ -1054,7 +1054,7 @@ f32 processNetwork(network* net, const f32* inputs, const f32* target_outputs, f
         const f32 loss = target_outputs[i] - os[i]; // bidirectional error
 
         net->error[i] += loss;
-        total_loss += fabsf(target_outputs[i] - os[i]); // we return actual loss as a metric
+        total_loss += fabsf(target_outputs[i] - os[i]); // we return absolute loss as a metric
     }
 
     // batching controller
