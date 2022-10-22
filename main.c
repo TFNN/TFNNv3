@@ -1,5 +1,5 @@
 // James William Fletcher (github.com/tfnn)
-// gcc main.c -lm -Ofast -mavx -mfma -o main
+// gcc main.c -lm -Ofast -mfma -o main
 
 #include <time.h>
 #include <stdint.h>
