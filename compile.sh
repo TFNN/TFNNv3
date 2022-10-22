@@ -1,3 +1,3 @@
 clear;clear
-gcc main.c -lm -Ofast -mavx -mfma -o main
+gcc main.c -lm -Ofast -mfma -o main
 ./main
