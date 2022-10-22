@@ -32,7 +32,7 @@
     FNN that will execute fast and efficiently on a CPU
     while still retaining a clean and portable codebase.
     
-    You may want to compile this with the -mavx -mfma
+    You may want to compile this with the -mfma
     flags for automatic vectorisation.
     
 */
