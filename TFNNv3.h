@@ -963,9 +963,9 @@ int createNetwork(network* net, const uint init_weights_type, const uint inputs,
 
     // weight init
     if(init_weights_type == WEIGHT_INIT_UNIFORM_GLOROT)
-        d = sqrtps(6.0f/(layers_size+1));
+        d = sqrtps(6.0f/(layers_size+num_outputs));
     else if(init_weights_type == WEIGHT_INIT_NORMAL_GLOROT)
-        d = sqrtps(2.0f/(layers_size+1));
+        d = sqrtps(2.0f/(layers_size+num_outputs));
 
     // create output layer
     for(uint i = 0; i < num_outputs; i++)
