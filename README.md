@@ -6,6 +6,7 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 `[10/08/22]` - Added support for SSE inverse square root `rsqrtss` in ADAGRAD and RMSPROP.<br>
 `[11/08/22]` - Fixed `saveNetwork()` & `loadNetwork()` functions & added three new `createNetwork()` functions.<br>
 `[23/08/22]` - Fixed `uRand()` function.<br>
+`[05/05/23]` - Added a memory bandwidth benchmark on training end.<br>
 
 ### Notes
 - Pass `target_outputs` as NULL to `processNetwork()` for a forward pass / no training.
