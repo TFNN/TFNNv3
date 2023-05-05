@@ -19,6 +19,8 @@
 f32 dataset[DSS];
 network net;
 uint EPOCHS = 333333333;
+uint epochs_per_second = 0;
+uint epoch_seconds = 0;
 time_t st;
 
 #ifdef __linux__
@@ -97,6 +99,9 @@ void run_tests(int sig_num)
     // save network
     //saveNetwork(&net, "network.save");
 
+    // calc memory bandwidth
+    printf("\nMemory Bandwidth: ~%.2f MB/s\n", (29004.f*((float)(epochs_per_second/epoch_seconds)))/1000.f);
+
     // done
     char strts[16];
     timestamp(&strts[0]);
@@ -153,8 +158,6 @@ int main()
 #endif
 
     // train network
-    uint epochs_per_second = 0;
-    uint epoch_seconds = 0;
     for(uint j=0; j < EPOCHS; j++)
     {
         f32 epoch_loss = 0.f;
