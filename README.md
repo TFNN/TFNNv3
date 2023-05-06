@@ -5,8 +5,9 @@ The example project provided is based on work by [Jim C. Williams](https://githu
 `[05/08/22]` - Initial commit, includes working example training on the Zodiac compatibility dataset.<br>
 `[10/08/22]` - Added support for SSE inverse square root `rsqrtss` in ADAGRAD and RMSPROP.<br>
 `[11/08/22]` - Fixed `saveNetwork()` & `loadNetwork()` functions & added three new `createNetwork()` functions.<br>
-`[23/08/22]` - Fixed `uRand()` function.<br>
-`[05/05/23]` - Added a memory bandwidth benchmark on training end.<br>
+`[23/08/22]` - Updated `uRand()` function.<br>
+`[26/02/23]` - Fixed output layer weight init for mutltiple outputs.<br>
+`[05/05/23]` - Added a memory bandwidth benchmark on training end of the example program.<br>
 
 ### Notes
 - Pass `target_outputs` as NULL to `processNetwork()` for a forward pass / no training.
