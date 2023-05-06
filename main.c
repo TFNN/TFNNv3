@@ -100,7 +100,7 @@ void run_tests(int sig_num)
     //saveNetwork(&net, "network.save");
 
     // calc memory bandwidth
-    printf("\nMemory Bandwidth: ~%.2f MB/s\n", (29004.f*((float)(epochs_per_second/epoch_seconds)))/1000.f);
+    printf("\nMemory Bandwidth: ~%.2f GB/s\n", (29004.f*((float)(epochs_per_second/epoch_seconds)))/1000000.f);
 
     // done
     char strts[16];
